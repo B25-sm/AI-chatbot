@@ -11,6 +11,17 @@ const LLAMA_MODEL = "llama-3.3-70b-versatile"
 const DEEPSEEK_MODEL = "deepseek-r1-distill-llama-70b"
 
 export async function POST(req: Request) {
+  // Check for GROQ_API_KEY but don't throw during build time
+  if (!process.env.GROQ_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "GROQ_API_KEY environment variable is not configured" }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+  }
+
   const { messages, model = LLAMA_MODEL } = await req.json()
 
   const result = streamText({

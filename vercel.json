@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd apps/www && pnpm build:fallback",
+  "outputDirectory": "apps/www/.next",
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
+} 
